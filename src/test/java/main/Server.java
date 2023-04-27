@@ -66,6 +66,11 @@ public class Server {
 
     }
 
+
+    /*
+    Given a map of orders with <product as key and quantity as value>
+    make the json file and make the restapi to update to the springboot server
+    * */
      public void createOrder(Map<Product, Integer> orders) throws JSONException, URISyntaxException, IOException, InterruptedException {
 
          //create Json product here ----start
