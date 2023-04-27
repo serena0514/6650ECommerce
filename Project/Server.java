@@ -1,8 +1,8 @@
 package main;
 
-import net.minidev.json.JSONObject;
-import org.springframework.web.client.RestTemplate;
-
+//import net.minidev.json.JSONObject;
+//import org.springframework.web.client.RestTemplate;
+import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,18 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Server {
-    final String uri = "http://localhost:7788";
-
-
-    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-        Server s = new Server();
-
-        s.getAllProducts();
-        s.create("test1hoodie", (float) 2.64,  3);
+    public String uri;
+    public Server(String port) {
+        uri = "http://localhost:" + port;
     }
-    public Server() {
 
-    }
+
     public  void getAllProducts() {
         String productUri = uri+"/product";
         RestTemplate restTemplate = new RestTemplate();
@@ -39,19 +33,18 @@ public class Server {
 
     }
 
-    public void create(String name, float price, int stock  ) throws IOException, InterruptedException, URISyntaxException {
+    public void create(String name, float price ) throws IOException, InterruptedException, URISyntaxException {
         System.out.println("inside create");
-        String createProductUri = uri + "/create";
+        String createProductUri = uri + "/product/create";
+        System.out.println(createProductUri);
         RestTemplate restTemplate = new RestTemplate();
         JSONObject productJson = new JSONObject();
 
         Map<String, List<String>> headersMap = new HashMap<>();
         List<String> contentTypeList = new ArrayList<>();
         contentTypeList.add("application/json");
-        headersMap.put("Content-Type", contentTypeList);
         productJson.put("name", name);
         productJson.put("price", price);
-        productJson.put("stockLeft", stock);
         System.out.println(productJson.toString());
 
         HttpRequest postRequest = HttpRequest.newBuilder()
@@ -66,7 +59,23 @@ public class Server {
 
 
     }
+
+     public void createOrder() {
+
+     }
 //    public static void updateProduct(Integer id, Product product) {
 //
-//    }
+
+
+    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
+        Server s = new Server("7788");
+        System.out.println(s.uri);
+
+        s.getAllProducts();
+        s.create("test2", (float) 3.3);
+        Product t1 = new Product("test3", 4);
+        
+
+
+    }
 }

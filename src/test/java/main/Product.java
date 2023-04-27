@@ -1,4 +1,4 @@
-package com.model;
+package main;
 
 
 
@@ -8,22 +8,22 @@ public class Product {
 
   private Integer id;
 
-
   private String name;
 
   private float price;
 
   public Product(){}
 
-  public Product(String name, float price) {
+  public Product(int id, String name, float price) {
     if(name == null){
       System.out.println("name cannot be null");
     }
+    this.id = id;
     this.name = name;
     this.price = price;
   }
 
-  public Integer getId() {
+ public Integer getId() {
     return id;
   }
 
