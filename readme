@@ -1,5 +1,34 @@
+There are two spring boot apps
+One is a coordinator. Other is the e-commerce server. All instances of server register with the coordinator on startup. Coordinator implements Consensus and Paxos by
+communicating with the server.
+How to run:
+1) Run using IntelliJ 
+2) Run coordinator first by running the main function in CoordinatorApplication.java (No arguments)
+3) Next, run multiple instances of demo application which are basically spring boot servers of the application (at least 5) by running DemoApplication.java (No arguments)
+4) Clients can use the following APIs:
 
-https://bikas-katwal.medium.com/zookeeper-introduction-designing-a-distributed-system-using-zookeeper-and-java-7f1b108e236e
-
-
-https://hub.docker.com/_/zookeeper
+a) List of all products: localhost:1010/product - GET
+b) List of all orders: localhost:1010/order - GET
+c) Specific order: localhost:1010/order/{orderId} - GET
+d) Create new order: localhost:1010/order - POST
+   Payload example: 
+{
+  "productOrders": [
+    {
+      "product": {
+        "id": 3,
+        "name": "T-shirt",
+        "price": 42
+      },
+      "quantity": 5
+    },
+    {
+      "product": {
+        "id": 4,
+        "name": "Pants",
+        "price": 23.99
+      },
+      "quantity": 5
+    }
+  ]
+}
